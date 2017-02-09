@@ -5,6 +5,7 @@
  */
 package org.yourorghere;
 
+import java.awt.Canvas;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.Principal;
@@ -14,7 +15,7 @@ import java.security.Principal;
  * @author Pablo
  */
 public class ManejadorTeclado implements KeyListener {
-
+public static boolean[] keyStates;
     Personaje movil;
     Game principal;
 
@@ -22,13 +23,34 @@ public class ManejadorTeclado implements KeyListener {
         this.movil = p;
 
         principal = p1;
+        
+        keyStates= new boolean[256];
 
     }
 
     public void keyTyped(KeyEvent ke) {
+        
 
+        /*
+         if (ke.getKeyChar() == 'b') {
+         this.movil.disparar();
+         */
+    }
+
+    public void keyPressed(KeyEvent ke) {
+        
+        keyStates[ke.getKeyChar()]=true;
+      //  System.out.println(ke.getKeyChar());
+   
+        /*
+        if (ke.getKeyChar() == 'w') {
+            this.movil.avanzar();
+
+        }
+                
+                */
         //To change body of generated methods, choose Tools | Templates.
-        if (ke.getKeyChar() == 's') {
+       /* if (ke.getKeyChar() == 's') {
             this.movil.retroceder();
 
         }
@@ -40,6 +62,8 @@ public class ManejadorTeclado implements KeyListener {
             this.movil.der();
 
         }
+               
+               */
         if (ke.getKeyChar() == 'e') {
             this.movil.up();
 
@@ -68,26 +92,19 @@ public class ManejadorTeclado implements KeyListener {
             principal.auxCam = 3;
         }
 
-       if (ke.getKeyChar() == 'w') {
-            this.movil.avanzar();
+        
+        
+        if (ke.getKeyChar() == 'h') {
 
+            System.exit(0);
         }
-             if (ke.getKeyChar() == 'b') {
-            this.movil.disparar();
-        }
 
 
 
-
-    }
-
-    public void keyPressed(KeyEvent ke) {
-
-  
-  
     }
 
     public void keyReleased(KeyEvent ke) {
+          keyStates[ke.getKeyChar()]=false;
 
     }
 

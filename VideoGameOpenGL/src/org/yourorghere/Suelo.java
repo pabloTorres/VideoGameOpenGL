@@ -26,10 +26,11 @@ public class Suelo {
     public void draw() {
         gl.glPushMatrix();
         Game.materiales.get("ruby").activarMaterial();
-        gl.glScalef(60, .1f, 70);
-        gl.glTranslatef(0, 0, -1);
+        gl.glScalef(90, .1f, 160);
+        gl.glTranslatef(0, 0, -.6f);
         glut.glutSolidCube(2);
         gl.glPopMatrix();
+
 
     }
 

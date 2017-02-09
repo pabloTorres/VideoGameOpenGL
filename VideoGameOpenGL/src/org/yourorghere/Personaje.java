@@ -13,14 +13,19 @@ import javax.media.opengl.GL;
  *
  * @author Pablo
  */
-public class Personaje {
+public class Personaje implements Movil {
 
     GL gl;
     GLUT glut = new GLUT();
-    Jugador j;
+    Ying ying;
+    Yang yang;
+    Yang2 yang2;
+    Ying2 ying2;
     float x, y, z, vel, anglex, angley;
+    boolean alive = true;
+    float incJump = 0;
 
-    Game principal;
+    Game32 principal;
     ArrayList<Bala> balas = new ArrayList();
 
     Personaje(float x, float y, float z, float v, GL gl) {
@@ -32,43 +37,39 @@ public class Personaje {
         this.angley = 0;
         this.gl = gl;
 
-        principal = new Game();
-        j = new Jugador(gl, glut);
+        principal = new Game32();
+        ying = new Ying(gl, glut);
+        yang = new Yang(gl, glut);
+        yang2 = new Yang2(gl, glut);
+        ying2 = new Ying2(gl, glut);
 
     }
 
     public void avanzar() {
 
-        /*if (principal.auxCam==4) {
-         this.z += this.vel;
-            
-         }
-         else   {
-         */
-        this.z += Math.sin(angley);
-        this.x += Math.cos(angley);
+        this.z += (Math.sin(angley)) * vel;
+        this.x += (Math.cos(angley)) * vel;
 
     }
 
     public void retroceder() {
 
-        this.z -= Math.sin(angley);
-        this.x -= Math.cos(angley);
-
+        this.z -= (Math.sin(angley)) * vel;
+        this.x -= (Math.cos(angley)) * vel;
     }
 
     public void izq() {
 
         // this.x -= this.vel;
-        this.z -= Math.sin(angley + (Math.PI / 2));
-        this.x -= Math.cos(angley + (Math.PI / 2));
+        this.z -= (Math.sin(angley + (Math.PI / 2))) * vel;
+        this.x -= (Math.cos(angley + (Math.PI / 2))) * vel;
     }
 
     public void der() {
 
         // this.x += this.vel;
-        this.z += Math.sin(angley + (Math.PI / 2));
-        this.x += Math.cos(angley + (Math.PI / 2));
+        this.z += (Math.sin(angley + (Math.PI / 2))) * vel;
+        this.x += (Math.cos(angley + (Math.PI / 2))) * vel;
 
     }
 
@@ -84,14 +85,16 @@ public class Personaje {
 
     }
 
+    /*
+     public void jump(){
+     this.y += this.vel;
+        
+    
+        
+        
+     }
+     */
     public void draw() {
-        gl.glPushMatrix();
-        gl.glTranslatef(x, y, z);
-        // gl.glRotatef(-(float) Math.toDegrees(angley), 0, 1, 0);
-        gl.glRotatef((float) -Math.toDegrees(angley), 0f, 1f, 0f);
-        gl.glRotatef(90, 0, 1, 0);
-        j.drawPerson();
-        gl.glPopMatrix();
 
         for (Bala bala : balas) {//Cada una de las balas guardadas en el ArrayList se dibujarán
             bala.Draw();
@@ -100,7 +103,10 @@ public class Personaje {
     }
 
     public void disparar() {//crea un nueva bala y la guarda en el arraylist
-        balas.add(new Bala(x, y, z, 3, angley, anglex, gl));//Tiene las mimas coordenadas que el personaje, con una velocidad 
+        if (alive) {
+            balas.add(new Bala(x, y, z, 6, angley, anglex, gl));//Tiene las mimas coordenadas que el personaje, con una velocidad    
+        }
+
     }
 
     public void actuar() {
@@ -108,7 +114,7 @@ public class Personaje {
         for (Bala bala : balas) {//Cada una de las balas guardadas en el ArrayList se dibujarán
             bala.actuar();
 
-            if (bala.cont > 25) {//si supera el umbral la guartda en el nuevo array temp
+            if (bala.cont > 35) {//si supera el umbral la guartda en el nuevo array temp
                 balastemp.add(bala);
             }
         }
@@ -116,6 +122,40 @@ public class Personaje {
         for (Bala bala : balastemp) {//borra todas las balas que están dentro de ella
             balas.remove(bala);
         }
+    }
+
+    public void getAngleY(Movil target) {
+        angley = (float) Math.atan2(target.getZ() - z, target.getX() - x);
+
+    }
+
+    public void getAngleX(Movil target) {
+        anglex = (float) Math.atan2(target.getX() - x, target.getY() - y);
+
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y1) {
+        this.y = y1;
+    }
+
+    public float getZ() {
+        return z;
+    }
+
+    public float getWidth() {
+        return 2.4f;
+    }
+
+    public void die() {
+        alive = false;
     }
 
 }

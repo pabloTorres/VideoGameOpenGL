@@ -22,8 +22,9 @@ public class ManejadorRaton implements GLEventListener, MouseListener, MouseMoti
 
     public void init(GLAutoDrawable drawable, Personaje p) {
         drawable.addMouseMotionListener(this);
+        drawable.addMouseListener(this);
 
-      personaje = p;
+        personaje = p;
 
         oldx = p.x;
         oldy = p.y;
@@ -31,48 +32,71 @@ public class ManejadorRaton implements GLEventListener, MouseListener, MouseMoti
     }
 
     public void display(GLAutoDrawable drawable) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
     }
 
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
     }
 
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     public void mouseClicked(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
     }
 
     public void mousePressed(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if (me.getButton() == MouseEvent.BUTTON1) {
+        //    System.out.println("siiiiiiiii");
+            personaje.disparar();
+
+           // personaje.actuar();
+        }
+        
+        
+                
+        if (me.getButton() == MouseEvent.BUTTON3) {
+        //    System.out.println("siiiiiiiii");
+//            Game32.en.disparar();
+//             Game32.en1.disparar();
+           // personaje.actuar();
+        }
     }
 
     public void mouseReleased(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     public void mouseEntered(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     public void mouseExited(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     public void mouseDragged(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        float x = me.getX();
+        float y = me.getY();
+       // System.out.println(personaje.anglex);
+
+        personaje.angley += (x - oldx) / 160f;
+        personaje.anglex += (y - oldy) / 160f;
+//        personaje.anglex = personaje.anglex % 2*3.14f;
+        oldx = x;
+        oldy = y;
     }
 
     public void mouseMoved(MouseEvent e) {
         float x = e.getX();
         float y = e.getY();
        // System.out.println(personaje.anglex);
-        
-        personaje.angley += (x - oldx) /160f;
-        personaje.anglex += (y - oldy)/160f;
+
+        personaje.angley += (x - oldx) / 160f;
+        personaje.anglex += (y - oldy) / 160f;
 //        personaje.anglex = personaje.anglex % 2*3.14f;
         oldx = x;
         oldy = y;

@@ -5,19 +5,41 @@
  */
 package org.yourorghere;
 
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.opengl.GL;
+import javax.media.opengl.GLException;
 
 /**
  *
  * @author Pablo
  */
 public class Almacen {
+    
+    /*
+    Texturas:
+    A single texture is worth than a thousand triangles
+    
+    textures is a picture that we map to the surface of a triangle or 
+    
+    
+    
+    */
+    
+    
+    
+    
 
     // public static HashMap<String, Material> mater = new HashMap<String, Material>();
     GL gl;
 
-    public Almacen(GL gl1, HashMap<String, Material> mater) {
+    public Almacen(GL gl1, HashMap<String, Material> mater, HashMap<String, Texture> text) {
+        
         gl = gl1;
         //  activarAlmacen();
         // mater1 = mater;
@@ -113,6 +135,19 @@ public class Almacen {
         float[] s13 = {0.727811f,0.633f , 0.633f, 0.55f};
         mat13.setMaterial(a13, d13, s13, 76.8f);
         mater.put("rojo2", mat13);
+        
+        
+        
+        
+        try {
+             Texture text1=TextureIO.newTexture(new File("Textures/ladrillo.jpg"), true);
+            text.put("piedra", text1);
+        
+        } catch (IOException ex) {
+            Logger.getLogger(Almacen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (GLException ex) {
+            Logger.getLogger(Almacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }
