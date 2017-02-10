@@ -140,7 +140,7 @@ public class Almacen {
         
         
         try {
-             Texture text1=TextureIO.newTexture(new File("Textures/ladrillo.jpg"), true);
+             Texture text1=TextureIO.newTexture(new File("ladrillo.jpg"), true);
             text.put("piedra", text1);
         
         } catch (IOException ex) {

@@ -25,7 +25,7 @@ public class Personaje implements Movil {
     boolean alive = true;
     float incJump = 0;
 
-    Game32 principal;
+    Game principal;
     ArrayList<Bala> balas = new ArrayList();
 
     Personaje(float x, float y, float z, float v, GL gl) {
@@ -37,7 +37,7 @@ public class Personaje implements Movil {
         this.angley = 0;
         this.gl = gl;
 
-        principal = new Game32();
+        principal = new Game();
         ying = new Ying(gl, glut);
         yang = new Yang(gl, glut);
         yang2 = new Yang2(gl, glut);
